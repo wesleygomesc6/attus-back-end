@@ -65,12 +65,12 @@ public class AtualizarPedido {
     }
 
     private void validarTransicaoDeStatus(StatusPedido atual, StatusPedido novo) {
-        if (novo == null) return;
-
         if (atual == StatusPedido.CONCLUIDO) {
             log.warn("Tentativa de alterar pedido já concluído");
             throw new IllegalStateException("Pedido concluído não pode ser alterado");
         }
+
+        if (novo == null) return;
 
         if (novo == StatusPedido.CANCELADO && atual != StatusPedido.PENDENTE && atual != StatusPedido.EM_ANALISE) {
             log.warn("Transição de status inválida: {} -> {}", atual, novo);
